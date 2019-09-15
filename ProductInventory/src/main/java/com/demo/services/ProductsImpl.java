@@ -19,11 +19,11 @@ public class ProductsImpl implements Products{
 	
 	public List<ProductDetails> getProductDetails( String userId) {
 		
-//	   UserReviewList reviews = restTemplate.getForObject("http://PRODUCT-USER-REVIEW/reviewservice/" + userId, UserReviewList.class);
-//	   return reviews.getUserReview().stream().map(review -> {
-//				ProductInfo productInfo= restTemplate.getForObject("http://PRODUCT-INFORMATION/productinfoservice/" + review.getProductName(), ProductInfo.class);
-//				return new ProductDetails(productInfo.getProductId(),productInfo.getProductName(),review.getPrice());
-//			 }).collect(Collectors.toList());	
-		return null;
+	   UserReviewList reviews = restTemplate.getForObject("http://PRODUCT-USER-REVIEW/reviewservice/" + userId, UserReviewList.class);
+	   return reviews.getUserReview().stream().map(review -> {
+				ProductInfo productInfo= restTemplate.getForObject("http://PRODUCT-INFORMATION/productinfoservice/" + review.getProductName(), ProductInfo.class);
+				return new ProductDetails(productInfo.getProductId(),productInfo.getProductName(),review.getPrice());
+			 }).collect(Collectors.toList());	
+		//return null;
  }
 }
