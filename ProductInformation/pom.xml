@@ -1,81 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+<parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.1.8.RELEASE</version>
+	<relativePath /> <!-- lookup parent from repository -->
+</parent>
 	<groupId>com.example</groupId>
 	<artifactId>ProductInformation</artifactId>
 	<version>1.0</version>
 	<name>ProductInformation</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-	</properties>
+<properties>
+	<java.version>1.8</java.version>
+	<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+	<swagger.version>2.9.2</swagger.version>
+	<swagger.ui.version>3.5.0</swagger.ui.version>
+	<swagger-annotations.version>2.0.9</swagger-annotations.version>
+	<swagger-jersey2-jaxrs.version>1.5.17</swagger-jersey2-jaxrs.version>
+</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
+<dependencies>
+   <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jdbc</artifactId>
+   </dependency>
+   
+   <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	
+	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
-		<dependency>
+	</dependency>
+	
+	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
+	</dependency>
+	
+	<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-
 			<exclusions>
 				<exclusion>
 					<groupId>javax.ws.rs</groupId>
 					<artifactId>jsr311-api</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+	</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger2</artifactId>
-    <version>2.9.2</version>
-</dependency>
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
 
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger-ui</artifactId>
-    <version>2.9.2</version>
-</dependency>
+<!-- Swagger integration -->
+	<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger2</artifactId>
+		<version>${swagger.version}</version>
+	</dependency>
 
-<dependency>
-    <groupId>io.swagger.core.v3</groupId>
-    <artifactId>swagger-annotations</artifactId>
-    <version>2.0.9</version>
-</dependency>
+<!-- <dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-swagger-ui</artifactId>
+<version>${swagger.ui.version}</version>
+</dependency>-->
+
+   <dependency>
+		<groupId>io.swagger.core.v3</groupId>
+		<artifactId>swagger-annotations</artifactId>
+		<version>${swagger-annotations.version}</version>
+   </dependency>
+
+   <dependency>
+		<groupId>io.swagger</groupId>
+		<artifactId>swagger-jersey2-jaxrs</artifactId>
+		<version>${swagger-jersey2-jaxrs.version}</version>
+	</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -89,13 +105,93 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<mainClass>com.demo.productinformation</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+			<!-- New configuration -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.maven-download-plugin</groupId>
+				<artifactId>download-maven-plugin</artifactId>
+				<version>1.4.2</version>
+				<executions>
+					<execution>
+						<id>swagger-ui</id>
+						<goals>
+							<goal>wget</goal>
+						</goals>
+						<configuration>
+							<url>
+								https://github.com/swagger-api/swagger-ui/archive/v${swagger.ui.version}.tar.gz
+							</url>
+							<unpack>true</unpack>
+							<outputDirectory>${project.build.directory}
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<!--<version>1.8</version> -->
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<sequential>
+									<echo>Copy Files</echo>
+									<copy todir="${project.build.directory}/classes/static">
+										<fileset
+											dir="${project.build.directory}/swagger-ui-${swagger.ui.version}/dist">
+											<include name="**" />
+										</fileset>
+									</copy>
+									<echo>Renaming 'index.html' to 'swagger-ui.html'</echo>
+									<move
+										file="${project.build.directory}/classes/static/index.html"
+										tofile="${project.build.directory}/classes/static/swagger-ui.html" />
+									<echo>Replace petstore swagger.json link</echo>
+									<replace
+										token="http://petstore.swagger.io/v2/swagger.json"
+										value="/swagger.json"
+										dir="${project.build.directory}/classes/static">
+										<include name="swagger-ui.html" />
+									</replace>
+								</sequential>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- End of new configuration -->
 		</plugins>
 	</build>
 

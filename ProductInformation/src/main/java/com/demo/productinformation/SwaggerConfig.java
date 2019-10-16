@@ -1,4 +1,8 @@
-package com.demo.productinformation;
+/**
+ * This class not required if we are configuring swagger using jersey
+ */
+
+/*package com.demo.productinformation;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,4 +36,4 @@ public class SwaggerConfig {
             .build();
     }
 
-}
+}*/
